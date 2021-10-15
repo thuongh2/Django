@@ -1,11 +1,10 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from .models import Category, Courses, Lesson, Tags, User
+from .models import Action, Category, Comment, Courses, Lesson, Rating, Tags, User, LessonView
 
 class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
         fields ="__all__"
-
 
 class UserSerializer(ModelSerializer):
 
@@ -48,6 +47,11 @@ class LessonSerializer(ModelSerializer):
         fields =['id', 'subject','content', 'image', 'created_date', 'update_date', 'courses', 'tag']
 
 
+class CommentSerializer(ModelSerializer):
+    class Meta:
+        model = Comment
+        fields =['id', 'content', 'created_date', 'updated_date']
+
 class TagSerializer(ModelSerializer):
     class Meta:
         model =Tags
@@ -60,3 +64,19 @@ class LessonDetailSerializer (LessonSerializer):
         model = LessonSerializer.Meta.model
         fields = LessonSerializer.Meta.fields + ['content', 'tag']
 
+class ActionSerializer (ModelSerializer):
+    class Meta:
+        model = Action
+        fields = ['id', 'type', 'created_date']
+
+    
+class RatingSerializer (ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ['id', 'rate', 'created_date']
+
+
+class LessonViewSerializer (ModelSerializer):
+    class Meta:
+        model = LessonView
+        fields = ['id', 'views','lesson']

@@ -47,9 +47,46 @@ class Lesson (MyModelBase):
 class Comment(models.Model):
     content = models.TextField()
     lesson = models.ForeignKey(Lesson, related_name='lesson', blank= True, on_delete= models.CASCADE)
+    creator = models.ForeignKey(User, on_delete= models.CASCADE)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now= True)
+
+    def __str__(self):
+        return self.content
+
 
 class Tags(models.Model):
     name = models.CharField(max_length=50, unique = True)
 
     def __str__(self):
         return self.name
+
+
+class ActionBase(models.Model):
+    lesson = models.ForeignKey(Lesson,  on_delete= models.CASCADE)
+    creator = models.ForeignKey(User, on_delete= models.CASCADE)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now= True)
+
+    class Meta:
+        abstract = True
+
+class Action(ActionBase):
+    LIKE, HAHA, HEART = range(3)
+    ACTIONS = [
+        (LIKE, 'like'),
+        (HAHA, 'haha'),
+        (HEART, 'heart')
+    ]
+    type = models.PositiveSmallIntegerField(choices=ACTIONS, default=LIKE)
+
+
+class Rating (ActionBase):
+    rate = models.PositiveSmallIntegerField(default=0)
+
+
+class LessonView (models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)
+    views = models.IntegerField(default=0)
+    lesson = models.OneToOneField(Lesson,  on_delete= models.CASCADE)
+    
