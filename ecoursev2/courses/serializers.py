@@ -1,10 +1,29 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from .models import Category, Courses, Lesson, Tags
+from .models import Category, Courses, Lesson, Tags, User
 
 class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
         fields ="__all__"
+
+
+class UserSerializer(ModelSerializer):
+
+    def create(self, validated_data):
+        user = User(**validated_data)
+        #{"user_name": user, "password": 1234}
+        #(user_name: 'user', password: 1234)
+        user.set_password(user.password)
+        user.save()
+        return user
+
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email', 'password', 'date_joined']
+        extr_kwargs = {
+            'password': {'write_only': 'True'}
+            }        
 
 
 class CoursesSerializer(ModelSerializer):

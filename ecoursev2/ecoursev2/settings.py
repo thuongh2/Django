@@ -37,9 +37,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'courses.apps.CoursesConfig', # cau hinh app courses
-    'rest_framework', # khai bao rest_framework
+    'courses.apps.CoursesConfig',  # cau hinh app courses
+    'rest_framework',  # khai bao rest_framework
+    'rest_framework_swagger',
+    'drf_yasg',
+    'provider',
+    'oauth2_provider',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
+
+# Using With ReactJs
+# OAUTH2_PROVIDER ={
+#     'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,6 +86,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecoursev2.wsgi.application'
 
+OAUTH2_INFO = {
+    'client_id': 'ebQCFjuaSpyygtwy5ulqmMpHgGA7lxywOH2poTvEY',
+    'client_secret': 'EFUH7UWnxYS6Xhr2WFzmPWIeRfPp9ge3vaTVLNUPMCNECnUFf4VI8CNF619Sk482l1QJSBgls2JmYLX3pofZDH8MWyXxmK6ckH5ckbGStpTFmD4kaVUSboiRYJ9Z7kbJ'
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -85,7 +104,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'courses.User' # chi dinh model user
+AUTH_USER_MODEL = 'courses.User'  # chi dinh model user
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -124,7 +143,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = '%s/courses/static/' % BASE_DIR # cau hinh upload file
+MEDIA_ROOT = '%s/courses/static/' % BASE_DIR  # cau hinh upload file
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

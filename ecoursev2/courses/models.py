@@ -43,6 +43,11 @@ class Lesson (MyModelBase):
     courses = models.ForeignKey(Courses, on_delete= models.CASCADE, related_name='lesson')
     tag = models.ManyToManyField("Tags", related_name='lesson', blank=True, null=True)
 
+
+class Comment(models.Model):
+    content = models.TextField()
+    lesson = models.ForeignKey(Lesson, related_name='lesson', blank= True, on_delete= models.CASCADE)
+
 class Tags(models.Model):
     name = models.CharField(max_length=50, unique = True)
 

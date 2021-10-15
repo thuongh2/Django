@@ -7,7 +7,10 @@ routers = routers.DefaultRouter()
 routers.register('categories', views.CategoryViewSet, 'categories')
 routers.register('courses', views.CourseViewSet, 'courses')
 routers.register('lesson', views.LessonViewSet, 'lesson')
+routers.register('users', views.UserViewSet, 'user')
+
 
 urlpatterns = [
     path('', include(routers.urls)),
+    path('oauth2-info/', views.AuthInfo.as_view(), name='oauth-info')
 ]
