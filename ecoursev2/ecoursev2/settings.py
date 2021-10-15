@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'courses.apps.CoursesConfig', # cau hinh app courses
+    'rest_framework', # khai bao rest_framework
 ]
 
 MIDDLEWARE = [
@@ -75,11 +77,15 @@ WSGI_APPLICATION = 'ecoursev2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ecoursedbv2',
+        'USER': 'root',
+        'PASSWORD': '0377019134tT@',
+        'HOST': ''
     }
 }
 
+AUTH_USER_MODEL = 'courses.User' # chi dinh model user
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -118,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+MEDIA_ROOT = '%s/courses/static/' % BASE_DIR # cau hinh upload file
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
