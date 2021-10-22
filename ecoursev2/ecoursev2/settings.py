@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'provider',
     'oauth2_provider',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -64,7 +65,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'ecoursev2.urls'
 
@@ -103,6 +106,11 @@ DATABASES = {
         'HOST': ''
     }
 }
+
+
+ALLOWED_HOSTS=['*']
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'courses.User'  # chi dinh model user
 

@@ -6,6 +6,7 @@ class CategorySerializer(ModelSerializer):
         model = Category
         fields ="__all__"
 
+
 class UserSerializer(ModelSerializer):
 
     def create(self, validated_data):
@@ -80,3 +81,5 @@ class LessonViewSerializer (ModelSerializer):
     class Meta:
         model = LessonView
         fields = ['id', 'views','lesson']
+
+        
