@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 export default function EcourseCard(props) {
 
     let path = `/courses/${props.obj.id}/lesson/`
-
+    if (props.type === 'lesson')
+        path = `/lesson/${props.obj.id}/`
     return (
         <Col md={4} xs={12}>
             <Card >

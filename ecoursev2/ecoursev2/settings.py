@@ -46,16 +46,20 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+OAUTH2_PROVIDER = {                   
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',                                                                                                                                                   
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    )
+    ),
 }
 
-# Using With ReactJs
-# OAUTH2_PROVIDER ={
-#     'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
-# }
+
+OAUTH2_PROVIDER ={
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,10 +91,12 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = 'ecoursev2.wsgi.application'
 
 OAUTH2_INFO = {
-    'client_id': 'ebQCFjuaSpyygtwy5ulqmMpHgGA7lxywOH2poTvEY',
+    'client_id': 'ebQCFjuSpyygtwy5ulqmMpHgGA7lxywOH2poTvEY',
     'client_secret': 'EFUH7UWnxYS6Xhr2WFzmPWIeRfPp9ge3vaTVLNUPMCNECnUFf4VI8CNF619Sk482l1QJSBgls2JmYLX3pofZDH8MWyXxmK6ckH5ckbGStpTFmD4kaVUSboiRYJ9Z7kbJ'
 }
 

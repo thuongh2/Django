@@ -52,7 +52,7 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
         if kw is not None:
             lesson = lesson.filter(subject__icontains=kw)
 
-        return Response(LessonSerializer(lesson, many=True).data, status=status.HTTP_200_OK)
+        return Response(LessonSerializer(lesson, many=True, context={'request': request}).data, status=status.HTTP_200_OK)
 
 
 class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):

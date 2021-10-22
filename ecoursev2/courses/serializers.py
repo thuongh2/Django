@@ -43,9 +43,21 @@ class CoursesSerializer(ModelSerializer):
         fields = ['id', 'subject', 'image', 'created_date','category']
 
 class LessonSerializer(ModelSerializer):
+    image= SerializerMethodField()
+
+    def get_image(self, lesson):
+        request = self.context['request']
+        name = lesson.image.name
+        if name.startswith('static/'):
+            path ='%s' % name
+        else:
+            path ='/static/%s' % name
+        return request.build_absolute_uri(path)
+
     class Meta:
         model = Lesson
         fields =['id', 'subject','content', 'image', 'created_date', 'update_date', 'courses', 'tag']
+
 
 
 class CommentSerializer(ModelSerializer):
