@@ -1,5 +1,6 @@
 import { Card, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import ReactTimeAgo from 'react-time-ago'
 
 export default function EcourseCard(props) {
 
@@ -7,14 +8,14 @@ export default function EcourseCard(props) {
     if (props.type === 'lesson')
         path = `/lesson/${props.obj.id}/`
     return (
-        <Col md={4} xs={12}>
-            <Card >
+        <Col md={3} xs={12}>
+            <Card className='mt-2 mb-4' style={{'width': '85%' }}>
                 <Link to={path}>
                 <Card.Img variant="top" style={{ height: '18rem' }} src={props.obj.image} />
                 <Card.Body>
                     <Card.Title>{props.obj.subject}</Card.Title>
                     <Card.Text>
-                        {props.obj.created_date}
+                        <ReactTimeAgo date={props.obj.created_date} locale="en-US"/>
                     </Card.Text>
                 </Card.Body>
                 </Link>

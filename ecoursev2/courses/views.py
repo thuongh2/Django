@@ -80,6 +80,12 @@ class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
 
                 return Response(self.serializer_class(lesson).data, status=status.HTTP_201_CREATED)
 
+    @action(methods=['GET'], detail=True, url_path='comment')
+    def get_comments(self,request, pk):
+        c = Comment.objects.filter(lesson= self.get_object())
+        
+        return Response(CommentSerializer(c, many= True, context={'request': request}).data, status=status.HTTP_200_OK)
+
     @action(methods=['POST'], detail=True, url_path='add-comment')
     def add_comments(self, request, pk):
         content = request.data.get('content')
@@ -122,10 +128,11 @@ class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
         return Response(LessonViewSerializer(v).data, status=status.HTTP_200_OK)
 
 
-class CommentViewSet(viewsets.ViewSet, generics.DestroyAPIView, generics.UpdateAPIView):
+class CommentViewSet(viewsets.ViewSet ,generics.ListAPIView, generics.DestroyAPIView, generics.UpdateAPIView):
     queryset = Comment.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = CommentSerializer
+
 
     def destroy(self, request, *args, **kwargs):
         if request.user == self.get_object().creator:
@@ -151,7 +158,7 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
 
     @action(methods=["GET"], detail=False, url_path='get-current')
     def get_current(self, request):
-        return Response(self.serializer_class(request.user).data, status=status.HTTP_200_OK)
+        return Response(self.serializer_class(request.user, context={'request': request}).data, status=status.HTTP_200_OK)
 
 
 class AuthInfo(APIView):

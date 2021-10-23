@@ -34,7 +34,7 @@ export default function Login() {
                     'Authorization': `Bearer ${cookies.load('access_token')}`
                 }
             })
-
+            console.info(user.data)
             cookies.save('user', user.data)
 
             dispatch(
@@ -51,9 +51,10 @@ export default function Login() {
     return (
         <>
             <Container>
-                <h1>Dang Nhap</h1>
-                <Form onSubmit={login}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+               
+                <Form onSubmit={login} className="mt-5" style={{'width':'50%', 'margin': 'auto'}}>
+                <h1>Đăng nhập</h1>
+                    <Form.Group className="mb-3"  controlId="formBasicEmail">
                         <Form.Label>User Name</Form.Label>
                         <Form.Control type="text"
                                     placeholder="Enter email" 

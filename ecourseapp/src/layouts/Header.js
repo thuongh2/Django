@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import Apis, { endpoint } from '../configs/Apis'
 import cookies from 'react-cookies'
 import { logoutUser } from '../ActionCreators/UserCreators.js';
+import {useLocation} from 'react-router'
 
 export default function Header() {
 
@@ -14,6 +15,9 @@ export default function Header() {
     const history = useHistory()
     const user = useSelector(state => state.user.user)
     const dispatch = useDispatch()
+    const location = useLocation()
+    const [change , setChange] = useState(0)
+
 
     useEffect(() => {
         const loadCategories = async () => {
@@ -35,12 +39,12 @@ export default function Header() {
         cookies.remove("user")
         dispatch(logoutUser())
         window.localStorage.clear()
-        window.location.href ='/'
+        window.location.reload(false);
     }
 
     let path = <>
-        <Link className="nav-link" to="/login" >Dang Nhap</Link>
-        <Link className="nav-link" to="/register" >Dang Ki</Link>
+        <Link className="nav-link" to="/login" >Login</Link>
+        <Link className="nav-link" to="/register" >Register</Link>
 
     </>
 
@@ -54,7 +58,7 @@ export default function Header() {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">EcourseApp</Navbar.Brand>
+                <Navbar.Brand href="/">EcourseApp</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -63,7 +67,7 @@ export default function Header() {
                             let path = `/?category_id=${c.id}`
                             return <Link key={c.id} className="nav-link" to={path} >{c.name}</Link>
                         })}
-                        {path}
+                        
                     </Nav>
                     <Form className="d-flex" onSubmit={search}>
                         <FormControl
@@ -76,6 +80,7 @@ export default function Header() {
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>
+                    {path}
                 </Navbar.Collapse>
             </Container>
         </Navbar >

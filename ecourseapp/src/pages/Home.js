@@ -3,6 +3,7 @@ import Apis, { endpoint } from '../configs/Apis'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
 import EcourseCard from '../layouts/EcourseCard'
 import { useLocation } from 'react-router'
+import { SpinnerItem } from '../layouts/Spinner'
 
 export default function Home() {
 
@@ -39,11 +40,16 @@ export default function Home() {
         setPage(page + inc)
     }
 
+    let path = <SpinnerItem/>
+    if (courses !== null && courses!== undefined) {
+        path = courses.map(c => <EcourseCard obj={c} />)
+    }
+
     return (
         <>
             <h1 className="text-center text-danger">DANH MUC KHOA HOC</h1>
             <Row>
-                {courses.map(c => <EcourseCard obj={c} />)}
+                {path}
             </Row>
             <div style={{'textAlign': 'center'}}>
                 <ButtonGroup className="me-2 " aria-label="First group">

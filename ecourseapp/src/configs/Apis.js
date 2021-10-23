@@ -8,7 +8,9 @@ export let endpoint = {
     'oauth2-info': '/oauth2-info/',
     'login': '/o/token/',
     'current-user': '/users/get-current/',
-    'register-user':'/users/'
+    'register-user':'/users/',
+    'comment': (lessonId) =>`/lesson/${lessonId}/comment/`,
+    'add-comment': (lessonId) =>`/lesson/${lessonId}/add-comment/`
 }
 
 export default axios.create({
